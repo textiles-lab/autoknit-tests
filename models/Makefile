@@ -22,6 +22,7 @@ all : \
 	simple-eight.obj \
 	simple-elbow.obj \
 	simple-sphere.obj \
+	simple-torus.obj \
 
 
 
