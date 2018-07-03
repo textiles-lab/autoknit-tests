@@ -23,9 +23,15 @@ all : \
 	simple-elbow.obj \
 	simple-sphere.obj \
 	simple-torus.obj \
+	split-1-2.obj \
+	split-1-3.obj \
+	split-2-3.obj \
+	split-3-3-nonflat.obj \
 
 
 
 simple-%.obj : simple.blend $(BLEND_MESH_TO_OBJ)
 	$(BLENDER) --background --python $(BLEND_MESH_TO_OBJ) -- '$<' '$(@:simple-%.obj=%)' '$@'
 
+split-%.obj : split.blend $(BLEND_MESH_TO_OBJ)
+	$(BLENDER) --background --python $(BLEND_MESH_TO_OBJ) -- '$<' '$(@:split-%.obj=%)' '$@'
