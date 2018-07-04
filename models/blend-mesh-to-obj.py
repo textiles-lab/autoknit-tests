@@ -22,7 +22,7 @@ objname = args[1]
 outfile = args[2]
 
 
-import bpy
+import bpy, bmesh
 
 bpy.ops.wm.open_mainfile(filepath=infile)
 
@@ -38,8 +38,6 @@ if obj.type != 'MESH':
 	print("Object named '" + objname + "' is a " + obj.type + ", not a MESH.")
 	exit(1)
 
-mesh = obj.data
-
 if bpy.context.mode == 'EDIT':
 	bpy.ops.object.mode_set(mode='OBJECT') #get out of edit mode (just in case)
 
@@ -50,11 +48,18 @@ bpy.ops.object.select_all(action='DESELECT')
 obj.select = True
 bpy.context.scene.objects.active = obj
 
-#subdivide object's mesh into triangles:
-bpy.ops.object.mode_set(mode='EDIT')
-bpy.ops.mesh.select_all(action='SELECT')
-bpy.ops.mesh.quads_convert_to_tris(quad_method='BEAUTY', ngon_method='BEAUTY')
-bpy.ops.object.mode_set(mode='OBJECT')
+mesh = obj.to_mesh(scene=bpy.context.scene, apply_modifiers=True, settings='PREVIEW')
+bm = bmesh.new()
+bm.from_mesh(mesh)
+bmesh.ops.triangulate(bm, faces=bm.faces[:], quad_method=3, ngon_method=1)
+bm.to_mesh(mesh)
+bm.free()
+
+##subdivide object's mesh into triangles:
+#bpy.ops.object.mode_set(mode='EDIT')
+#bpy.ops.mesh.select_all(action='SELECT')
+#bpy.ops.mesh.quads_convert_to_tris(quad_method='BEAUTY', ngon_method='BEAUTY')
+#bpy.ops.object.mode_set(mode='OBJECT')
 
 #compute normals (respecting face smoothing):
 mesh.calc_normals_split()
