@@ -29,11 +29,15 @@ all : \
 	split-3-3-nonflat.obj \
 	split-2-3-uneven.obj \
 	split-swiss.obj \
+	misc-cactus.obj \
 
 
 
 simple-%.obj : simple.blend $(BLEND_MESH_TO_OBJ)
 	$(BLENDER) --background --python $(BLEND_MESH_TO_OBJ) -- '$<' '$(@:simple-%.obj=%)' '$@'
+
+misc-%.obj : misc.blend $(BLEND_MESH_TO_OBJ)
+	$(BLENDER) --background --python $(BLEND_MESH_TO_OBJ) -- '$<' '$(@:misc-%.obj=%)' '$@'
 
 split-%.obj : split.blend $(BLEND_MESH_TO_OBJ)
 	$(BLENDER) --background --python $(BLEND_MESH_TO_OBJ) -- '$<' '$(@:split-%.obj=%)' '$@'
