@@ -27,6 +27,7 @@ all : \
 	split-1-3.obj \
 	split-2-3.obj \
 	split-3-3-nonflat.obj \
+	split-2-3-uneven.obj \
 	split-swiss.obj \
 
 
