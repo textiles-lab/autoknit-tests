@@ -30,6 +30,7 @@ all : \
 	split-2-3-uneven.obj \
 	split-swiss.obj \
 	misc-cactus.obj \
+	misc-pipes.obj \
 
 
 
