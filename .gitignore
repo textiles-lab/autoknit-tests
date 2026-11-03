@@ -1,1 +1,4 @@
 models/*.blend1
+out-st/
+out-js/
+out-k/
